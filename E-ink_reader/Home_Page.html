@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的主页 | 欢迎来到我的世界</title>
+    <style>
+        /* --- 全局重置与变量 --- */
+        :root {
+            --primary-color: #2563eb;       /* 主色调：蓝色 */
+            --secondary-color: #1e40af;     /* 次色调：深蓝 */
+            --text-dark: #1f2937;           /* 深色文字 */
+            --text-light: #6b7280;          /* 浅色文字 */
+            --bg-light: #f9fafb;            /* 浅灰背景 */
+            --white: #ffffff;
+            --max-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- 导航栏 --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white) !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* --- Hero 区域 (首屏) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+            padding: 0 2rem;
+            margin-top: 60px; /* 抵消固定导航栏高度 */
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- 特性/服务区域 --- */
+        .features {
+            padding: 5rem 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 { margin-bottom: 0.5rem; }
+        .card p { color: var(--text-light); font-size: 0.95rem; }
+
+        /* --- 关于区域 --- */
+        .about {
+            background-color: var(--bg-light);
+            padding: 5rem 2rem;
+        }
+
+        .about-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            background-color: #ddd; /* 占位图颜色 */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text h2 { font-size: 2.25rem; margin-bottom: 1.5rem; }
+        .about-text p { margin-bottom: 1rem; color: var(--text-light); }
+
+        /* --- 页脚 --- */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p { opacity: 0.7; font-size: 0.9rem; }
+
+        /* --- 移动端适配 --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* 简化版：移动端隐藏菜单，实际项目需加汉堡菜单 */
+            .about-container { flex-direction: column; }
+            .about-image { width: 100%; height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <div class="logo">MyBrand.</div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#features">服务</a></li>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#contact" class="btn-primary">联系我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 首屏 Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>构建您的下一个<br>伟大创意</h1>
+            <p>我们提供简洁、高效且美观的数字化解决方案，助力您的业务快速增长。从今天开始，改变未来。</p>
+            <a href="#features" class="btn-primary">了解更多</a>
+        </div>
+    </section>
+
+    <!-- 特性展示 -->
+    <section id="features" class="features">
+        <div class="section-title">
+            <h2>为什么选择我们</h2>
+            <p style="color: var(--text-light);">专注于细节，致力于为您提供最佳体验</p>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h3>极速性能</h3>
+                <p>经过优化的代码与架构，确保您的网站在任何设备上都能秒级加载。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎨</div>
+                <h3>现代设计</h3>
+                <p>遵循最新的设计趋势，打造符合用户直觉的交互界面与视觉体验。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔒</div>
+                <h3>安全可靠</h3>
+                <p>企业级的安全防护措施，保障您的数据隐私与业务连续性。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-image">
+                <!-- 这里可以替换为 <img src="your-image.jpg" alt="About Us" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"> -->
+                <span>图片占位符 (600x400)</span>
+            </div>
+            <div class="about-text">
+                <h2>关于我们</h2>
+                <p>我们是一支充满激情的创造者团队。自2020年成立以来，我们始终坚持以用户为中心的设计理念。</p>
+                <p>无论是初创公司还是世界500强，我们都用同样的热情与专业度对待每一个项目。我们相信，好的设计不仅仅是好看，更是好用。</p>
+                <br>
+                <a href="#" style="color: var(--primary-color); font-weight: 600;">查看我们的故事 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <p>&copy; 2026 MyBrand. All Rights Reserved. | 京ICP备XXXXXXXX号</p>
+    </footer>
+
+    <!-- 简单的平滑滚动脚本 -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
